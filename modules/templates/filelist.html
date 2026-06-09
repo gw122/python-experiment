@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>数据库-文件管理记录</title>
+</head>
+<body>
+<div style="width:90%;margin:30px auto;">
+    <h3>SQLite中已保存的上传文件列表</h3>
+    <a href="/" style="padding:6px 12px;background:#007bff;color:white;text-decoration:none;">返回上传页</a>
+    <table border="1" cellpadding="6" style="width:100%;margin-top:20px;">
+        <tr><th>ID</th><th>文件名</th><th>本地存储路径</th></tr>
+        {% for item in records %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.filename}}</td>
+            <td>{{item.file_path}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

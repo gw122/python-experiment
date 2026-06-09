@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>数据管理模块 | 文件上传预览导出</title>
+    <style>
+        table{border-collapse: collapse;width:100%;margin:20px 0;}
+        td,th{border:1px solid #999;padding:6px 10px;}
+        .box{width:90%;margin:30px auto;}
+        .btn{padding:8px 16px;background:#007bff;color:white;border:none;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;margin:5px;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>📁 数据管理：CSV/Excel 上传、预览、导出</h2>
+    <!-- 上传表单 -->
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv,.xlsx,.xls" required>
+        <button class="btn" type="submit">上传文件</button>
+        <a href="/file_list" class="btn">查看历史文件(数据库)</a>
+    </form>
+    <!-- 提示消息 -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="color:green;margin:10px 0;">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- 预览表格 -->
+    {% if data %}
+        <h3>预览【{{filename}}】（前100行）</h3>
+        <a href="/export" class="btn">一键导出Excel</a>
+        <table>
+            <tr>
+                {% for col in columns %}
+                    <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+            {% for row in data %}
+            <tr>
+                {% for col in columns %}
+                    <td>{{row[col]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>暂无预览数据，请上传CSV/Excel文件</p>
+    {% endif %}
+</div>
+</body>
+</html>
